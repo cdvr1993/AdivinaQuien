@@ -14,6 +14,8 @@ namespace AdivinaQuien
     {
         public VentanaPrincipal () {
             InitializeComponent ();
+            foreach (Personaje p in Program.personajes)
+                listBox1.Items.Add ( p.Nombre );
         }
     }
 }
