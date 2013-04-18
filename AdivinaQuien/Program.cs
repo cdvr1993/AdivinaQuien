@@ -11,6 +11,7 @@ namespace AdivinaQuien
     static class Program
     {
         public static List<Personaje> personajes = new List<Personaje> ();
+        public static Personaje personajeElegido = null;
         public static List<Categorias> categorias = new List<Categorias> ();
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -25,9 +26,7 @@ namespace AdivinaQuien
 
         static void cargando () {
             try {
-                Thread hilo = new Thread ( generarPersonajes ), hilo2 = new Thread ( generarCategorias ), 
-                    cargandoHilo = new Thread ( Cargando.cargarVentana );
-                cargandoHilo.Start ();
+                Thread hilo = new Thread ( generarPersonajes ), hilo2 = new Thread ( generarCategorias );
                 hilo.Start ();
                 hilo2.Start ();
                 hilo.Join ();
@@ -35,7 +34,6 @@ namespace AdivinaQuien
                 Thread hilo3 = new Thread ( generarRelaciones );
                 hilo3.Start ();
                 hilo3.Join ();
-                cargandoHilo.Abort ();
             } catch (Exception e) {
                 Console.WriteLine ( e.Message );
             }
@@ -57,25 +55,27 @@ namespace AdivinaQuien
             try {
                 FileStream fs = new FileStream ( "Personajes1.csv", FileMode.Open, FileAccess.Read );
                 StreamReader sr = new StreamReader ( fs );
-                String nombre = sr.ReadLine ();
+                String nombre = "";
                 String aux = "";
-                int i = 0, j = 0, columna = 0;
+                int row = 0, columna = 0;
                 while ((nombre = sr.ReadLine ()) != null) {
                     foreach (char c in nombre) {
                         if (c == ',') {
-                            if (j == 0)
+                            if (columna == 0)
                                 categorias.Add ( new Categorias ( aux, categorias.Count ) );
-                            else if (j >= 1) {
-                                categorias[columna].agregarOpciones ( aux );
-                                columna++;
-                                aux = "";
-                                continue;
-                            }
-                            aux += c;
+                            else if (columna > 0)
+                                categorias[row].agregarOpciones ( new Preguntas ( aux ) );
+                            aux = "";
+                            columna++;
+                            continue;
                         }
+                        aux += c;
                     }
-                    j++;
+                    //Por la última palabra que no tiene coma.
+                    categorias[row].agregarOpciones ( new Preguntas ( aux ) );
+                    aux = "";
                     columna = 0;
+                    row++;
                 }
                 sr.Close ();
                 fs.Close ();
@@ -83,7 +83,36 @@ namespace AdivinaQuien
         }
 
         static void generarRelaciones () {
-            Thread.Sleep ( 1000 );
+            try {
+                FileStream fs = new FileStream ( "Personajes.csv", FileMode.Open, FileAccess.Read );
+                StreamReader sr = new StreamReader ( fs );
+                String nombre = sr.ReadLine ();
+                String aux = "";
+                int row = 0, column = -1, indexCat=0;
+                while ((nombre = sr.ReadLine ()) != null) {
+                    foreach (char c in nombre) {
+                        if (c == ',') {
+                            if (column == categorias[indexCat].Count) {
+                                indexCat++;
+                                column = 0;
+                            }
+                            if (aux.Length > 0 && column != -1)
+                                categorias[indexCat][column].agregarAprobado ( personajes[row] );
+                            column++;
+                            aux = "";
+                            continue;
+                        }
+                        aux += c;
+                    }
+                    row++;
+                    aux = "";
+                    indexCat = 0;
+                    column = -1;
+                }
+                sr.Close ();
+                fs.Close ();
+            } catch (FileNotFoundException) { }
         }
+
     }
 }

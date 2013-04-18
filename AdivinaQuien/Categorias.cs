@@ -10,15 +10,34 @@ namespace AdivinaQuien
     {
         private int idCategoria;
         private String nombre;
-        private List<String> opcion = new List<String>();
+        private List<Preguntas> questions = new List<Preguntas> ();
         public Categorias ( String nombre, int id ) {
-            this.nombre = null;
+            this.nombre = nombre;
             this.idCategoria = id;
         }
 
-        public void agregarOpciones(String opcion){
-            if(this.opcion.IndexOf(opcion)>=0) return;
-            this.opcion.Add(opcion);
+        public void agregarOpciones(Preguntas p){
+            if (questions.Contains ( p )) return;
+            questions.Add ( p );
         }
+
+        public String Nombre {
+            get {
+                return this.nombre;
+            }
+        }
+
+        public Preguntas this [int index]{
+            get {
+                return questions[index];
+            }
+        }
+
+        public int Count {
+            get {
+                return questions.Count;
+            }
+        }
+
     }
 }
