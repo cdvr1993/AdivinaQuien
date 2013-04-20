@@ -19,6 +19,10 @@ namespace AdivinaQuien
             aprobados.Add ( p );
         }
 
+        public override string ToString () {
+            return this.question;
+        }
+
         public List<Personaje> Aprobados {
             get {
                 return aprobados;

@@ -52,7 +52,11 @@
     <Compile Include="DisplayPersonaje.Designer.cs">
       <DependentUpon>DisplayPersonaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="MatrizRelacion.cs" />
+    <Compile Include="Juego.cs" />
+    <Compile Include="Maquina.cs" />
+    <Compile Include="PanelPersonajes.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Preguntas.cs" />
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>

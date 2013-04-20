@@ -97,7 +97,7 @@ namespace AdivinaQuien
                                 column = 0;
                             }
                             if (aux.Length > 0 && column != -1)
-                                categorias[indexCat][column].agregarAprobado ( personajes[row] );
+                                categorias[indexCat].Preguntas[column].agregarAprobado ( personajes[row] );
                             column++;
                             aux = "";
                             continue;

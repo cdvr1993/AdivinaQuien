@@ -6,21 +6,37 @@ using System.Threading.Tasks;
 
 namespace AdivinaQuien
 {
-    class BinaryTree<T>
+    class BinaryTree
     {
         private Node root;
         public BinaryTree () {
             root = null;
         }
 
-        public void Add (T Personaje) {
-            if(root != null){
-                root = new Node (Personaje);
+        public void Add (Personaje p) {
+            if(root == null){
+                root = new Node (p);
             }else{
+                Node tmp = root;
+                while (true) {
+                    if (tmp.menor ( p ) == -1) {
+                        if (tmp.Izq == null) {
+                            tmp.Izq = new Node ( p );
+                            return;
+                        }
+                        tmp = tmp.Izq;
+                    } else if (tmp.menor ( p ) == 1) {
+                        if (tmp.Der == null) {
+                            tmp.Der = new Node ( p );
+                            return;
+                        }
+                        tmp = tmp.Der;
+                    } else return;
+                }
             }
         }
 
-        public Boolean Contains ( T Personaje ) {
+        public Boolean Contains ( Personaje p ) {
             return false;
         }
 
@@ -32,20 +48,22 @@ namespace AdivinaQuien
 
         private class Node
         {
-            private Node actual, izq, der;
-            private T personaje;
+            private Node izq = null, der = null;
+            private Personaje persona;
 
-            public Node (T personaje) {
-                this.personaje = personaje;
+            public Node (Personaje p) {
+                this.persona = p;
             }
 
-            public Node Actual {
-                set {
-                    this.actual = value;
+            public int menor ( Personaje p ) {
+                int i;
+                for (i = 0 ; i < p.Nombre.Length && i < persona.Nombre.Length ; i++) {
+                    if (persona.Nombre[i] < p.Nombre[i]) return -1;
+                    else if (persona.Nombre[i] > p.Nombre[i]) return 1;
                 }
-                get {
-                    return actual;
-                }
+                if (i == persona.Nombre.Length && i == p.Nombre.Length) return 0;
+                else if (i == persona.Nombre.Length) return -1;
+                else return 1;
             }
 
             public Node Izq {
@@ -64,6 +82,10 @@ namespace AdivinaQuien
                 get {
                     return this.der;
                 }
+            }
+
+            public Personaje Persona { 
+                get { return this.persona; } 
             }
         }
     }

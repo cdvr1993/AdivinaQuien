@@ -12,7 +12,18 @@ namespace AdivinaQuien
 {
     public partial class DisplayPersonaje : UserControl
     {
+        private Boolean activado = true;
+
+        public DisplayPersonaje ( Personaje p, Size parentSize, Boolean activado ) {
+            this.activado = activado;
+            init ( p, parentSize );
+        }
+
         public DisplayPersonaje (Personaje p, Size parentSize) {
+            init ( p, parentSize );
+        }
+
+        private void init(Personaje p, Size parentSize) {
             InitializeComponent ();
             this.Size = parentSize;
             Image background = Image.FromFile ( "Images/" + p.Nombre + ".jpg" );
@@ -24,6 +35,13 @@ namespace AdivinaQuien
                 size -= (float) 0.5;
             }
             lblNombre.Location = new Point ( x, parentSize.Height - lblNombre.Height );
+        }
+
+        public void tacharPersonaje () {
+        }
+
+        private void pnlCruz_Click ( object sender, EventArgs e ) {
+
         }
     }
 }

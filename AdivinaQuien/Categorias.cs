@@ -27,10 +27,8 @@ namespace AdivinaQuien
             }
         }
 
-        public Preguntas this [int index]{
-            get {
-                return questions[index];
-            }
+        public List<Preguntas> Preguntas{
+            get { return questions; }
         }
 
         public int Count {

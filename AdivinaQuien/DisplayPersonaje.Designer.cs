@@ -26,6 +26,7 @@
         /// </summary>
         private void InitializeComponent () {
             this.lblNombre = new System.Windows.Forms.Label();
+            this.pnlCruz = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -39,11 +40,21 @@
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "label1";
             // 
+            // pnlCruz
+            // 
+            this.pnlCruz.Location = new System.Drawing.Point(0, 0);
+            this.pnlCruz.Name = "pnlCruz";
+            this.pnlCruz.Size = new System.Drawing.Size(116, 130);
+            this.pnlCruz.TabIndex = 1;
+            this.pnlCruz.Visible = false;
+            this.pnlCruz.Click += new System.EventHandler(this.pnlCruz_Click);
+            // 
             // DisplayPersonaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.pnlCruz);
             this.Controls.Add(this.lblNombre);
             this.Name = "DisplayPersonaje";
             this.Size = new System.Drawing.Size(117, 150);
@@ -55,6 +66,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Panel pnlCruz;
 
     }
 }

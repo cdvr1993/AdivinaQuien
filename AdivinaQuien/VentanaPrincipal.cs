@@ -12,24 +12,22 @@ namespace AdivinaQuien
 {
     public partial class VentanaPrincipal : Form
     {
-        private List<Panel> paneles = new List<Panel>();
-        private List<Personaje> agregados = new List<Personaje> ();
+        private List<PanelPersonajes> paneles = new List<PanelPersonajes>();
         private const int NUMPANELES = 24;
+        public static List<Personaje> seleccionados = null;
+        public static Maquina maquina = null;
+        public static Juego game = null;
         public VentanaPrincipal () {
             InitializeComponent ();
             generarPaneles ();
             foreach (Personaje p in Program.personajes)
                 lstPersonajes.Items.Add ( p.Nombre );
-            String salida = "";
-            foreach (Personaje p in Program.categorias[0][2].Aprobados)
-                salida += p.Nombre + "\n";
-            MessageBox.Show ( salida );
         }
 
         private void generarPaneles () {
-            Point pos = new Point ( 20, 12 );
+            Point pos = new Point ( 20, 400 );
             for (int i = 0, x = 100, y = 140 ; i < NUMPANELES ; i++) {
-                paneles.Add ( new Panel () );
+                paneles.Add ( new PanelPersonajes () );
                 paneles[i].Location = pos;
                 paneles[i].Name = "pnl" + i;
                 paneles[i].Size = new Size ( x, y );
@@ -38,32 +36,51 @@ namespace AdivinaQuien
                 //  Cambiamos unicamente la posición para que no se sobreescriban.
                 pos = new Point ( paneles[i].Bounds.X + paneles[i].Width + 10, paneles[i].Bounds.Y );
                 if ((pos.X + x) > 1366)
-                    pos = new Point ( paneles[0].Bounds.X, 12 + y + 10 );
+                    pos = new Point ( paneles[0].Bounds.X, 400 + y + 10 );
             }
         }
 
         private void iniciarJuego (int id) {
-            //Limpiamos la pantalla de Selección
-            lstPersonajes.Dispose ();
-            btnAceptar.Dispose ();
-            //A partir de aquí comenzará el juego.
-            Program.personajeElegido = Program.personajes[id];
-            agregarPersonajesAleatoriamente ();
+            game = new Juego ( this );
+            game.start ( id );
         }
 
-        private void agregarPersonajesAleatoriamente () {
+        public void agregarPersonajesAleatoriamente () {
             Random r = new Random ( System.DateTime.Now.Millisecond );
+            List<Personaje> agregados = new List<Personaje> ();
             for (int i = 0, index = 0 ; i < NUMPANELES ; i++) {
                 do {
                     index = r.Next ( Program.personajes.Count );
                 } while (Program.personajeElegido.Equals ( Program.personajes[index] ) || agregados.Contains ( Program.personajes[index] ));
-                paneles[i].Controls.Add ( new DisplayPersonaje ( Program.personajes[index], paneles[i].Size ) );
+                paneles[i].Display = new DisplayPersonaje ( Program.personajes[index], paneles[i].Size );
                 agregados.Add ( Program.personajes[index] );
             }
+            seleccionados = agregados;
         }
 
         private void btnAceptar_Click ( object sender, EventArgs e ) {
-            iniciarJuego ( lstPersonajes.SelectedIndex );
+            if (lstPersonajes.SelectedIndex < 0)
+                MessageBox.Show ( "Seleccione algún personaje", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            else if (cbDificultad.SelectedIndex < 0)
+                MessageBox.Show ( "Seleccione la dificultad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            else {
+                pnlSelection.Dispose ();
+                maquina = new Maquina ( cbDificultad.SelectedIndex );
+                iniciarJuego ( lstPersonajes.SelectedIndex );
+            }
+        }
+
+        private void lstPersonajes_SelectedIndexChanged ( object sender, EventArgs e ) {
+            pnlSelection.Controls.Clear ();
+            pnlSelection.Controls.Add ( new DisplayPersonaje ( Program.personajes[lstPersonajes.SelectedIndex], pnlSelection.Size, false ) );
+        }
+
+        public ListBox ListaDePersonajes {
+            get { return lstPersonajes; }
+        }
+
+        private void btnPreguntar_Click ( object sender, EventArgs e ) {
+            game.preguntar ();
         }
     }
 }
