@@ -80,6 +80,13 @@ namespace AdivinaQuien
                 }
                 sr.Close ();
                 fs.Close ();
+
+                // OJO!!!!! Aquí se genera el arbol de categorías, para la dificultad fácil. 
+
+                BinaryTreeCategoriasFacil.Node copia = null;
+                copia = BinaryTreeCategoriasFacil.arbolCategoriasAleatorias(categorias);
+
+
             } catch (FileNotFoundException) { }
         }
 

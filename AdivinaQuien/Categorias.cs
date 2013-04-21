@@ -10,7 +10,7 @@ namespace AdivinaQuien
     {
         private int idCategoria;
         private String nombre;
-        private List<Preguntas> questions = new List<Preguntas> ();
+        public List<Preguntas> questions = new List<Preguntas> ();
         public Categorias ( String nombre, int id ) {
             this.nombre = nombre;
             this.idCategoria = id;
