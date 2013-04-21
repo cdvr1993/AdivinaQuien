@@ -8,9 +8,11 @@ namespace AdivinaQuien
 {
     public class Maquina
     {
-        private int dificultad = 0;
-        public Maquina ( int dificultad ) {
+        public int dificultad = 0;
+        public BinaryTree.Node clon = null;
+        public Maquina ( int dificultad, BinaryTree.Node copia) {
             this.dificultad = dificultad;
+            this.clon = copia;
         }
 
 

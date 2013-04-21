@@ -17,6 +17,8 @@ namespace AdivinaQuien
         public static List<Personaje> seleccionados = null;
         public static Maquina maquina = null;
         public static Juego game = null;
+        public static BinaryTree.Node copia = null;
+
         public VentanaPrincipal () {
             InitializeComponent ();
             generarPaneles ();
@@ -56,6 +58,14 @@ namespace AdivinaQuien
                 agregados.Add ( Program.personajes[index] );
             }
             seleccionados = agregados;
+            copia = BinaryTree.arbolPersonajesAleatorios(seleccionados);
+          // // BinaryTree.printArbol(nuevo);
+          //  Personaje p = new Personaje("Ale Galindo", 0); 
+          //  bool contiene = BinaryTree.Contains(nuevo, p);
+          //  MessageBox.Show(contiene.ToString());
+          ////  MessageBox.Show(nuevo.Izq.Persona.Nombre);
+          // // BinaryTree nuevo = BinaryTree.arbolPersonajesAleatorios(List < Personaje > generados);
+            
         }
 
         private void btnAceptar_Click ( object sender, EventArgs e ) {
@@ -65,7 +75,7 @@ namespace AdivinaQuien
                 MessageBox.Show ( "Seleccione la dificultad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             else {
                 pnlSelection.Dispose ();
-                maquina = new Maquina ( cbDificultad.SelectedIndex );
+                maquina = new Maquina ( cbDificultad.SelectedIndex, copia);
                 iniciarJuego ( lstPersonajes.SelectedIndex );
             }
         }

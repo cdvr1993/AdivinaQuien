@@ -3,42 +3,88 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdivinaQuien
 {
-    class BinaryTree
+    public class BinaryTree
     {
-        private Node root;
-        public BinaryTree () {
-            root = null;
-        }
+        public static Node root;
+        public static List<Personaje> copia;
 
-        public void Add (Personaje p) {
-            if(root == null){
-                root = new Node (p);
-            }else{
-                Node tmp = root;
-                while (true) {
-                    if (tmp.menor ( p ) == -1) {
-                        if (tmp.Izq == null) {
-                            tmp.Izq = new Node ( p );
-                            return;
+        public static Node arbolPersonajesAleatorios(List<Personaje> generados)
+        {
+            copia = generados;
+            root = new Node(generados.ElementAt<Personaje>(0));
+	    	Node tmp;
+            for (int i = 1; i < copia.Count; i++)
+            {
+                tmp = root;
+                while (true)
+                {
+                    if (tmp.menor(copia.ElementAt<Personaje>(i)) == -1)
+                    {
+                        if (tmp.Izq == null)
+                        {
+                            tmp.Izq = new Node(copia.ElementAt<Personaje>(i));
+                            break;
                         }
                         tmp = tmp.Izq;
-                    } else if (tmp.menor ( p ) == 1) {
-                        if (tmp.Der == null) {
-                            tmp.Der = new Node ( p );
-                            return;
+                    }
+                    else if (tmp.menor(copia.ElementAt<Personaje>(i)) == 1)
+                    {
+                        if (tmp.Der == null)
+                        {
+                            tmp.Der = new Node(copia.ElementAt<Personaje>(i));
+                            break;
                         }
                         tmp = tmp.Der;
-                    } else return;
+                    }
                 }
             }
+            return root;
         }
 
-        public Boolean Contains ( Personaje p ) {
+        public static void printArbol(Node node)
+        {
+		    if(node.Izq != null) printArbol(node.Izq);
+            MessageBox.Show ("valor = " + node.Persona.Nombre + "; id = " + node.Persona.ID);
+            if (node.Der != null) printArbol(node.Der);
+        }
+
+        public static Boolean Contains(Node node, Personaje p)
+        {
+            Node root = node;
+            Node tmp;
+            for (int i = 1; i < copia.Count; i++)
+            {
+                tmp = root;
+                while (true)
+                {
+                    if (tmp.menor(p) == 0)
+                        return true;
+
+                    if (tmp.menor(p) == -1)
+                    {
+                        if (tmp.Izq == null)
+                        {
+                            return false;
+                        }
+                        tmp = tmp.Izq;
+                    }
+                    else if (tmp.menor(p) == 1)
+                    {
+                        if (tmp.Der == null)
+                        {
+                            return false;
+                        }
+                        tmp = tmp.Der;
+                    }
+                }
+            }
             return false;
         }
+
 
         public int Count {
             get {
@@ -46,7 +92,7 @@ namespace AdivinaQuien
             }
         }
 
-        private class Node
+        public class Node
         {
             private Node izq = null, der = null;
             private Personaje persona;
@@ -61,9 +107,9 @@ namespace AdivinaQuien
                     if (persona.Nombre[i] < p.Nombre[i]) return -1;
                     else if (persona.Nombre[i] > p.Nombre[i]) return 1;
                 }
-                if (i == persona.Nombre.Length && i == p.Nombre.Length) return 0;
-                else if (i == persona.Nombre.Length) return -1;
-                else return 1;
+               if (i == persona.Nombre.Length && i == p.Nombre.Length) return 0;
+               if (i == persona.Nombre.Length) return -1;
+               else return 1;
             }
 
             public Node Izq {

@@ -27,6 +27,7 @@ namespace AdivinaQuien
             interfaz.lstPreguntas.Show ();
             interfaz.btnPreguntar.Show ();
             agregarPreguntasALaLista ();
+          
         }
 
         public void agregarPreguntasALaLista () {

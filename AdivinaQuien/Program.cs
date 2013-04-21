@@ -22,6 +22,7 @@ namespace AdivinaQuien
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault ( false );
             Application.Run ( new VentanaPrincipal () );
+
         }
 
         static void cargando () {
