@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace AdivinaQuien
 {
-    class Preguntas
+    public class Preguntas
     {
         public String question;
         public List<Personaje> aprobados = new List<Personaje> ();
+        private Boolean visitado = false;
         public Preguntas ( String pregunta ) {
             this.question = pregunta;
         }
@@ -29,6 +30,10 @@ namespace AdivinaQuien
             }
         }
 
+        public Boolean Visitado {
+            set { this.visitado = value; }
+            get { return this.visitado; }
+        }
      
     }
 }

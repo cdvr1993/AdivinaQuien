@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace AdivinaQuien
 {
     public partial class DisplayPersonaje : UserControl
     {
         private Boolean activado = true;
+        private Boolean tachado = false;
+        public static int cantidadDeTachados = 0;
+        private Personaje personaje;
 
         public DisplayPersonaje ( Personaje p, Size parentSize, Boolean activado ) {
             this.activado = activado;
@@ -25,6 +29,7 @@ namespace AdivinaQuien
 
         private void init(Personaje p, Size parentSize) {
             InitializeComponent ();
+            this.personaje = p;
             this.Size = parentSize;
             Image background = Image.FromFile ( "Images/" + p.Nombre + ".jpg" );
             lblNombre.Text = p.Nombre;
@@ -38,10 +43,35 @@ namespace AdivinaQuien
         }
 
         public void tacharPersonaje () {
+            Image background = Image.FromFile ( "Images/tache.jpg" );
+            pnlCruz.BackgroundImage = background;
+            pnlCruz.Visible = true;
+            tachado = true;
         }
 
-        private void pnlCruz_Click ( object sender, EventArgs e ) {
+        public Personaje Persona {
+            get { return this.personaje; }
+        }
 
+        public Boolean Tachado {
+            set { this.tachado = value; }
+            get { return this.tachado; }
+        }
+
+        private void DisplayPersonaje_Click ( object sender, EventArgs e ) {
+            if (activado) {
+                if (!tachado) {
+                    if ((VentanaPrincipal.NUMPANELES - cantidadDeTachados) > 6) {
+                        if (MessageBox.Show ( "¿Seguro que desea eliminar por personaje cuando aún quedan tantos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
+                            == DialogResult.No) return;
+                    }
+                    VentanaPrincipal.maquina.escogerRespuesta ();
+                    if (VentanaPrincipal.maquina.personajeMaquina == this.personaje) VentanaPrincipal.game.ganar ();
+                    else this.tacharPersonaje ();
+                    VentanaPrincipal.game.cambiarTurno ();
+                    VentanaPrincipal.game.escribirRestantes ();
+                }
+            }
         }
     }
 }

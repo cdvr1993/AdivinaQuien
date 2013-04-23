@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdivinaQuien
 {
-    class PanelPersonajes : System.Windows.Forms.Panel
+    public class PanelPersonajes : System.Windows.Forms.Panel
     {
         private DisplayPersonaje display = null;
         public PanelPersonajes () { }
@@ -17,6 +17,10 @@ namespace AdivinaQuien
                 display = value;
                 Controls.Add ( display );
             }
+        }
+
+        public Personaje Persona {
+            get { return display.Persona; }
         }
     }
 }

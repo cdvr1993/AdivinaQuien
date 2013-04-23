@@ -13,6 +13,7 @@ namespace AdivinaQuien
         public static List<Personaje> personajes = new List<Personaje> ();
         public static Personaje personajeElegido = null;
         public static List<Categorias> categorias = new List<Categorias> ();
+        public static BinaryTreeCategoriasFacil.Node copia = null;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
@@ -80,12 +81,7 @@ namespace AdivinaQuien
                 }
                 sr.Close ();
                 fs.Close ();
-
-                // OJO!!!!! Aquí se genera el arbol de categorías, para la dificultad fácil. 
-
-                BinaryTreeCategoriasFacil.Node copia = null;
                 copia = BinaryTreeCategoriasFacil.arbolCategoriasAleatorias(categorias);
-
 
             } catch (FileNotFoundException) { }
         }

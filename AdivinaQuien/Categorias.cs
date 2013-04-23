@@ -37,5 +37,13 @@ namespace AdivinaQuien
             }
         }
 
+        public int AprobadosCount {
+            get {
+                int count = 0;
+                foreach (Preguntas p in questions) count += p.aprobados.Count;
+                return count;
+            }
+        }
+
     }
 }

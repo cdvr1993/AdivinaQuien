@@ -12,8 +12,8 @@ namespace AdivinaQuien
 {
     public partial class VentanaPrincipal : Form
     {
-        private List<PanelPersonajes> paneles = new List<PanelPersonajes>();
-        private const int NUMPANELES = 24;
+        public List<PanelPersonajes> paneles = new List<PanelPersonajes>();
+        public const int NUMPANELES = 24;
         public static List<Personaje> seleccionados = null;
         public static Maquina maquina = null;
         public static Juego game = null;
@@ -53,18 +53,14 @@ namespace AdivinaQuien
             for (int i = 0, index = 0 ; i < NUMPANELES ; i++) {
                 do {
                     index = r.Next ( Program.personajes.Count );
-                } while (Program.personajeElegido.Equals ( Program.personajes[index] ) || agregados.Contains ( Program.personajes[index] ));
-                paneles[i].Display = new DisplayPersonaje ( Program.personajes[index], paneles[i].Size );
+                } while ( agregados.Contains ( Program.personajes[index] ));
+                if (i == NUMPANELES - 1 && !agregados.Contains(Program.personajeElegido)) paneles[i].Display = new DisplayPersonaje ( Program.personajeElegido, paneles[i].Size );
+                else paneles[i].Display = new DisplayPersonaje ( Program.personajes[index], paneles[i].Size );
                 agregados.Add ( Program.personajes[index] );
             }
             seleccionados = agregados;
+            Maquina.seleccionados = agregados;
             copia = BinaryTree.arbolPersonajesAleatorios(seleccionados);
-          // // BinaryTree.printArbol(nuevo);
-          //  Personaje p = new Personaje("Ale Galindo", 0); 
-          //  bool contiene = BinaryTree.Contains(nuevo, p);
-          //  MessageBox.Show(contiene.ToString());
-          ////  MessageBox.Show(nuevo.Izq.Persona.Nombre);
-          // // BinaryTree nuevo = BinaryTree.arbolPersonajesAleatorios(List < Personaje > generados);
             
         }
 
@@ -74,7 +70,10 @@ namespace AdivinaQuien
             else if (cbDificultad.SelectedIndex < 0)
                 MessageBox.Show ( "Seleccione la dificultad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             else {
-                pnlSelection.Dispose ();
+                gbTurno.Visible = true;
+                pnlSelection.Controls.Add ( gbTurno );
+                pnlSelection.Controls.Add ( gbRestantes );
+                pnlSelection.Controls.RemoveAt ( 0 );
                 maquina = new Maquina ( cbDificultad.SelectedIndex, copia);
                 iniciarJuego ( lstPersonajes.SelectedIndex );
             }
@@ -91,6 +90,10 @@ namespace AdivinaQuien
 
         private void btnPreguntar_Click ( object sender, EventArgs e ) {
             game.preguntar ();
+        }
+        
+        public List<PanelPersonajes> Paneles {
+            get { return this.paneles; }
         }
     }
 }
