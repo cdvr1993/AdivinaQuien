@@ -82,6 +82,9 @@ namespace AdivinaQuien
                 sr.Close ();
                 fs.Close ();
                 copia = BinaryTreeCategoriasFacil.arbolCategoriasAleatorias(categorias);
+               // int[] coincidencias = BinaryTreeCategoriaMedia.obtenerCoincidencias(categorias);
+
+
 
             } catch (FileNotFoundException) { }
         }

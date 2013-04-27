@@ -13,6 +13,7 @@ namespace AdivinaQuien
     public partial class VentanaPrincipal : Form
     {
         public List<PanelPersonajes> paneles = new List<PanelPersonajes>();
+        public static VentanaPrincipal Interfaz; 
         public const int NUMPANELES = 24;
         public static List<Personaje> seleccionados = null;
         public static Maquina maquina = null;
@@ -24,6 +25,7 @@ namespace AdivinaQuien
             generarPaneles ();
             foreach (Personaje p in Program.personajes)
                 lstPersonajes.Items.Add ( p.Nombre );
+            Interfaz = this;
         }
 
         private void generarPaneles () {
@@ -61,7 +63,6 @@ namespace AdivinaQuien
             seleccionados = agregados;
             Maquina.seleccionados = agregados;
             copia = BinaryTree.arbolPersonajesAleatorios(seleccionados);
-            
         }
 
         private void btnAceptar_Click ( object sender, EventArgs e ) {
@@ -89,7 +90,7 @@ namespace AdivinaQuien
         }
 
         private void btnPreguntar_Click ( object sender, EventArgs e ) {
-            game.preguntar ();
+            game.preguntar ();           
         }
         
         public List<PanelPersonajes> Paneles {

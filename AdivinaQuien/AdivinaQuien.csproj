@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BinaryTree.cs" />
     <Compile Include="BinaryTreeCategoriasFacil.cs" />
+    <Compile Include="BinatyTreeCategoriaMedia.cs" />
     <Compile Include="Categorias.cs" />
     <Compile Include="DisplayPersonaje.cs">
       <SubType>UserControl</SubType>
@@ -59,6 +60,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Preguntas.cs" />
+    <Compile Include="Pruebas.cs" />
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

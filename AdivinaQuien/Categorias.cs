@@ -8,7 +8,7 @@ namespace AdivinaQuien
 {
     class Categorias
     {
-        private int idCategoria;
+        public int idCategoria;
         private String nombre;
         public List<Preguntas> questions = new List<Preguntas> ();
         public Categorias ( String nombre, int id ) {

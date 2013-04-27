@@ -13,8 +13,8 @@ namespace AdivinaQuien
 {
     public partial class DisplayPersonaje : UserControl
     {
-        private Boolean activado = true;
-        private Boolean tachado = false;
+        public Boolean activado = true;
+        public Boolean tachado = false;
         public static int cantidadDeTachados = 0;
         private Personaje personaje;
 
