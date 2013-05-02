@@ -9,13 +9,16 @@ namespace AdivinaQuien
     public class Maquina
     {
         public int dificultad = 0;
-        public BinaryTree.Node clon = null;
         public Personaje personajeMaquina = null;
         public Preguntas preguntaActual = null;
+        public List<Categorias> copiaDeCategorias = null;
         public static List<Personaje> seleccionados;
         public Maquina ( int dificultad, BinaryTree.Node copia) {
             this.dificultad = dificultad;
-            this.clon = copia;
+            if (dificultad == 1) {
+                copiaDeCategorias = new List<Categorias> ( Program.categorias );
+                BinaryTreeCategoriaMedia.root = BinaryTreeCategoriaMedia.arbolMedia ( copiaDeCategorias );
+            }
         }
 
         public void generarPersonajeDeLaMaquina () {
@@ -30,9 +33,14 @@ namespace AdivinaQuien
                 seleccionados.RemoveAt ( 0 );
                 return;
             }
-            Random r = new Random(DateTime.Now.Millisecond);
+            if (dificultad == 0) respuestaFacil ();
+            else if (dificultad == 1) respuestaNormal ();
+        }
+
+        public void respuestaFacil () {
+            Random r = new Random ( DateTime.Now.Millisecond );
             int count = 0, i = 0;
-            Program.copia.Count(Program.copia, ref count);
+            Program.copia.Count ( Program.copia, ref count );
             Program.copia.encontrarPreguntaAleatoria ( r.Next ( count ), ref i, Program.copia );
             Boolean eliminarTodas = false;
             if (preguntaActual.Aprobados.Contains ( personajeMaquina )) eliminarTodas = true;
@@ -44,6 +52,13 @@ namespace AdivinaQuien
                     if (preguntaActual.Aprobados.Contains ( p )) seleccionados.Remove ( p );
                 }
             }
+        }
+
+        public void respuestaNormal () {
+            Random r = new Random ( DateTime.Now.Millisecond );
+            int count = 0, i = 0;
+            count = BinaryTreeCategoriaMedia.Recursiones;
+
         }
     }
 }

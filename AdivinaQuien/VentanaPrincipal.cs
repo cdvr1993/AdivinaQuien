@@ -45,7 +45,7 @@ namespace AdivinaQuien
         }
 
         private void iniciarJuego (int id) {
-            game = new Juego ( this );
+            game = new Juego ( );
             game.start ( id );
         }
 

@@ -22,9 +22,9 @@ namespace AdivinaQuien
                 i = c.idCategoria;
                 foreach (Preguntas q in c.Preguntas) // Total de preguntas por categoria: pelo corto, pelo largo, pelón 
                 {
-                    foreach (PanelPersonajes p in VentanaPrincipal.Interfaz.paneles) // Total de personajes en paneles: alex, romi, yo, etc.
+                    foreach (Personaje p in VentanaPrincipal.seleccionados) // Total de personajes en paneles: alex, romi, yo, etc.
                     {
-                        if (q.aprobados.Contains(p.Display.Persona) && p.Display.tachado == false) // Sí el personaje está contenido en la pregunta... 
+                        if (q.aprobados.Contains(p)) // Sí el personaje está contenido en la pregunta... 
                         {
                             contador++;
                         }
@@ -71,6 +71,27 @@ namespace AdivinaQuien
                 }
             }
             return root;
+        }
+
+        public static void encontrarPreguntaAleatoria ( BinaryTreeCategoriasFacil.Node tmp, ref int aleatorio, ref int contador ) {
+            if (aleatorio == contador)
+                return;
+            if (tmp.Izq != null) encontrarPreguntaAleatoria ( tmp.Izq, ref aleatorio, ref contador );
+            if (tmp.Der != null) encontrarPreguntaAleatoria ( tmp.Der, ref aleatorio, ref contador );
+        }
+
+        public static int Recursiones {
+            get {
+                int count = 0;
+                Count ( root, ref count );
+                return count;
+            }
+        }
+
+        private static void Count ( BinaryTreeCategoriasFacil.Node tmp, ref int i ) {
+            i++;
+            if (tmp.Izq != null) Count ( tmp.Izq, ref i );
+            if (tmp.Der != null) Count ( tmp.Der, ref i );
         }
 
         public class NodoCoincidencias 
