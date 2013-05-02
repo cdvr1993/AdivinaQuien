@@ -56,8 +56,8 @@ namespace AdivinaQuien
 
         public void respuestaNormal () {
             Random r = new Random ( DateTime.Now.Millisecond );
-            int count = 0, i = 0;
-            count = BinaryTreeCategoriaMedia.Recursiones;
+           // int count = 0, i = 0;
+            //count = BinaryTreeCategoriaMedia.Recursiones;
 
         }
     }

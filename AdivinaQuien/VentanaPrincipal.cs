@@ -47,6 +47,7 @@ namespace AdivinaQuien
         private void iniciarJuego (int id) {
             game = new Juego ( );
             game.start ( id );
+         
         }
 
         public void agregarPersonajesAleatoriamente () {
@@ -90,7 +91,7 @@ namespace AdivinaQuien
         }
 
         private void btnPreguntar_Click ( object sender, EventArgs e ) {
-            game.preguntar ();           
+            game.preguntar ();
         }
         
         public List<PanelPersonajes> Paneles {

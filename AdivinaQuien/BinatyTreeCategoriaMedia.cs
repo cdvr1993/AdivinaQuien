@@ -8,18 +8,22 @@ namespace AdivinaQuien
 {
     class BinaryTreeCategoriaMedia
     {
-        public static BinaryTreeCategoriasFacil.Node root;
+        public static NodePregunta root;
         public static List<Categorias> copia;
 
         public static List<NodoCoincidencias> obtenerCoincidencias(List<Categorias> clon)
-        {
+        { 
             copia = clon;
-            List<NodoCoincidencias> coincidencias = new List<NodoCoincidencias>(copia.Count());
+            int num_preguntas = 0;
+            foreach (Categorias c in copia)
+                foreach (Preguntas q in c.Preguntas)
+                    num_preguntas += 1;
+
+            List<NodoCoincidencias> coincidencias = new List<NodoCoincidencias>(num_preguntas);
             int contador = 0; 
-            int i = 0; 
 
             foreach (Categorias c in copia){ // Total de categorias: pelo, ojos, nariz, sonrisa 
-                i = c.idCategoria;
+            
                 foreach (Preguntas q in c.Preguntas) // Total de preguntas por categoria: pelo corto, pelo largo, pelón 
                 {
                     foreach (Personaje p in VentanaPrincipal.seleccionados) // Total de personajes en paneles: alex, romi, yo, etc.
@@ -28,45 +32,45 @@ namespace AdivinaQuien
                         {
                             contador++;
                         }
+
                     }
-                    coincidencias.Add (new NodoCoincidencias(contador, i));
+                    coincidencias.Add(new NodoCoincidencias(contador, q.question));
                     contador = 0;
                 }
             }
             return coincidencias; 
         }
 
-        public static BinaryTreeCategoriasFacil.Node arbolMedia(List<Categorias> clon)
+        public static NodePregunta arbolMedia(List<Categorias> clon)
         {
             List<NodoCoincidencias> coincidences = obtenerCoincidencias(clon); // Se hace una lista de las coincidencias
             coincidences.Sort((x, y) => x.veces.CompareTo(y.veces)); // Para que los ordene en base a las veces
             coincidences.Reverse(); // Los ponga de Mayor A Menor
-            int indexInicial = coincidences.ElementAt<NodoCoincidencias>(0).getIndex();
-            root = new BinaryTreeCategoriasFacil.Node(null, clon.ElementAt<Categorias>(indexInicial).Preguntas);
-            BinaryTreeCategoriasFacil.Node tmp;
+            root = new NodePregunta (null, coincidences.ElementAt<NodoCoincidencias>(0).question);
+            NodePregunta tmp;
 
             for (int i = 1; i < 5; i++)
             {
                 tmp = root;
                 while (true)
                 {
-                    if (tmp.preguntas.Count <= (clon.ElementAt<Categorias>(coincidences.ElementAt<NodoCoincidencias>(i).getIndex()).Preguntas.Count))
+                    if (i<3)
                     {
-                        if (tmp.Izq == null)
+                        if (tmp.izq == null)
                         {
-                            tmp.Izq = new BinaryTreeCategoriasFacil.Node(tmp, clon.ElementAt<Categorias>(coincidences.ElementAt<NodoCoincidencias>(i).getIndex()).Preguntas);
+                            tmp.izq = new NodePregunta(tmp, coincidences.ElementAt<NodoCoincidencias>(i).question);
                             break;
                         }
-                        tmp = tmp.Izq;
+                        tmp = tmp.izq;
                     }
-                    else if (tmp.preguntas.Count > (clon.ElementAt<Categorias>(coincidences.ElementAt<NodoCoincidencias>(i).getIndex()).Preguntas.Count))
+                    else 
                     {
-                        if (tmp.Der == null)
+                        if (tmp.der == null)
                         {
-                            tmp.Der = new BinaryTreeCategoriasFacil.Node(tmp, clon.ElementAt<Categorias>(coincidences.ElementAt<NodoCoincidencias>(i).getIndex()).Preguntas);
+                            tmp.der = new NodePregunta(tmp, coincidences.ElementAt<NodoCoincidencias>(i).question);
                             break;
                         }
-                        tmp = tmp.Der;
+                        tmp = tmp.der;
                     }
                 }
             }
@@ -83,7 +87,7 @@ namespace AdivinaQuien
         public static int Recursiones {
             get {
                 int count = 0;
-                Count ( root, ref count );
+               // Count ( root, ref count );
                 return count;
             }
         }
@@ -97,18 +101,28 @@ namespace AdivinaQuien
         public class NodoCoincidencias 
         {
             public int veces;
-            public int index;
+            public String question;
 
-            public NodoCoincidencias (int repeticiones, int indexCategoria)
+            public NodoCoincidencias (int repeticiones,  String question)
             {
                 this.veces = repeticiones;
-                this.index = indexCategoria;
-            }
-
-            public int getIndex()
-            {
-                return this.index;
+                this.question = question;
             }
         }
+
+        public class NodePregunta
+        {
+            public NodePregunta padre = null;
+            public NodePregunta izq = null, der = null;
+            private Boolean visitado = false;
+            public String question = "";
+
+            public NodePregunta (NodePregunta padre, String question)
+            {
+                this.padre = padre;
+                this.question = question; 
+            }
+        }
+
     }
 }

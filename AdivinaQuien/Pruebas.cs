@@ -9,20 +9,22 @@ namespace AdivinaQuien
 {
      class Pruebas
     {
-        public List<PanelPersonajes> paneles;
         public List<Categorias> copia = null;
-        public BinaryTreeCategoriasFacil.Node root = null;
+        public BinaryTreeCategoriaMedia.NodePregunta root = null;
 
-        public Pruebas(List<Categorias> copy)
+        public Pruebas()
         {
-            copia = copy;
+            copia = Program.categorias;
         }
 
         public void formar () {
-        paneles = VentanaPrincipal.Interfaz.paneles;
         root = BinaryTreeCategoriaMedia.arbolMedia(copia);
-        MessageBox.Show(root.preguntas.ElementAt<Preguntas>(0).ToString());
-        MessageBox.Show(root.preguntas.ElementAt<Preguntas>(1).ToString());
+        MessageBox.Show(root.question);
+        MessageBox.Show(root.izq.question);
+        MessageBox.Show(root.izq.izq.question);
+        MessageBox.Show(root.der.question);
+        MessageBox.Show(root.der.der.question);
+      
     }
 
     }

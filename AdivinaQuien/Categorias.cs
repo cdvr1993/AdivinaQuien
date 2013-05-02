@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdivinaQuien
 {
-    class Categorias
+    public class Categorias
     {
         public int idCategoria;
         private String nombre;
