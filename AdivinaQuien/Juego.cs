@@ -114,7 +114,8 @@ namespace AdivinaQuien
 
         public void perder () {
             VentanaPrincipal.Interfaz.pnlMaquina.Controls.Add ( new DisplayPersonaje ( VentanaPrincipal.maquina.personajeMaquina, VentanaPrincipal.Interfaz.pnlMaquina.Size ) );
-            MessageBox.Show ( "Has perdido.... Sigue participando!" );
+            MessageBox.Show ( "Tu personajes es: " + Program.personajeElegido +
+                              "\nHas perdido.... Sigue participando!" );
         }
     }
 }

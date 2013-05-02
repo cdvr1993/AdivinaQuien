@@ -8,7 +8,7 @@ namespace AdivinaQuien
 {
     class BinaryTreeCategoriaMedia
     {
-        public static NodePregunta root;
+        public static NodePregunta root = null;
         public static List<Categorias> copia;
 
         public static List<NodoCoincidencias> obtenerCoincidencias(List<Categorias> clon)
@@ -34,7 +34,7 @@ namespace AdivinaQuien
                         }
 
                     }
-                    coincidencias.Add(new NodoCoincidencias(contador, q.question));
+                    coincidencias.Add(new NodoCoincidencias(contador, q));
                     contador = 0;
                 }
             }
@@ -77,33 +77,12 @@ namespace AdivinaQuien
             return root;
         }
 
-        public static void encontrarPreguntaAleatoria ( BinaryTreeCategoriasFacil.Node tmp, ref int aleatorio, ref int contador ) {
-            if (aleatorio == contador)
-                return;
-            if (tmp.Izq != null) encontrarPreguntaAleatoria ( tmp.Izq, ref aleatorio, ref contador );
-            if (tmp.Der != null) encontrarPreguntaAleatoria ( tmp.Der, ref aleatorio, ref contador );
-        }
-
-        public static int Recursiones {
-            get {
-                int count = 0;
-               // Count ( root, ref count );
-                return count;
-            }
-        }
-
-        private static void Count ( BinaryTreeCategoriasFacil.Node tmp, ref int i ) {
-            i++;
-            if (tmp.Izq != null) Count ( tmp.Izq, ref i );
-            if (tmp.Der != null) Count ( tmp.Der, ref i );
-        }
-
         public class NodoCoincidencias 
         {
             public int veces;
-            public String question;
+            public Preguntas question;
 
-            public NodoCoincidencias (int repeticiones,  String question)
+            public NodoCoincidencias (int repeticiones,  Preguntas question)
             {
                 this.veces = repeticiones;
                 this.question = question;
@@ -114,13 +93,37 @@ namespace AdivinaQuien
         {
             public NodePregunta padre = null;
             public NodePregunta izq = null, der = null;
-            private Boolean visitado = false;
-            public String question = "";
+            public Preguntas question = null;
 
-            public NodePregunta (NodePregunta padre, String question)
+            public NodePregunta (NodePregunta padre, Preguntas question)
             {
                 this.padre = padre;
                 this.question = question; 
+            }
+
+            public void encontrarPreguntaAleatoria ( NodePregunta tmp, ref int aleatorio, ref int contador ) {
+                if (aleatorio < contador) return;
+                if (aleatorio == contador) {
+                    VentanaPrincipal.maquina.preguntaActual = tmp.question;
+                    contador++;
+                }
+                contador++;
+                if (tmp.izq != null) encontrarPreguntaAleatoria ( tmp.izq, ref aleatorio, ref contador );
+                if (tmp.der != null) encontrarPreguntaAleatoria ( tmp.der, ref aleatorio, ref contador );
+            }
+
+            public int Recursiones {
+                get {
+                    int count = 0;
+                    Count ( this, ref count );
+                    return count;
+                }
+            }
+
+            private void Count ( NodePregunta tmp, ref int i ) {
+                i++;
+                if (tmp.izq != null) Count ( tmp.izq, ref i );
+                if (tmp.der != null) Count ( tmp.der, ref i );
             }
         }
 

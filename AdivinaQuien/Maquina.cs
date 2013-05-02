@@ -15,10 +15,7 @@ namespace AdivinaQuien
         public static List<Personaje> seleccionados;
         public Maquina ( int dificultad, BinaryTree.Node copia) {
             this.dificultad = dificultad;
-            if (dificultad == 1) {
-                copiaDeCategorias = new List<Categorias> ( Program.categorias );
-                BinaryTreeCategoriaMedia.root = BinaryTreeCategoriaMedia.arbolMedia ( copiaDeCategorias );
-            }
+            if (dificultad == 1) copiaDeCategorias = new List<Categorias> ( Program.categorias );
         }
 
         public void generarPersonajeDeLaMaquina () {
@@ -42,8 +39,41 @@ namespace AdivinaQuien
             int count = 0, i = 0;
             Program.copia.Count ( Program.copia, ref count );
             Program.copia.encontrarPreguntaAleatoria ( r.Next ( count ), ref i, Program.copia );
+            eliminarPersonajesMaquina ();
+        }
+
+        public void respuestaNormal () {
+            if(BinaryTreeCategoriaMedia.root == null)
+                BinaryTreeCategoriaMedia.root = BinaryTreeCategoriaMedia.arbolMedia ( copiaDeCategorias );
+            Random r = new Random ( DateTime.Now.Millisecond );
+            int count = 0, i = 0, aleatorio = 0;
+            count = BinaryTreeCategoriaMedia.root.Recursiones;
+            aleatorio = r.Next ( count );
+            BinaryTreeCategoriaMedia.root.encontrarPreguntaAleatoria ( BinaryTreeCategoriaMedia.root, ref aleatorio, ref i );
+            Boolean eliminarTodas = eliminarPersonajesMaquina ();
+            //  Se elimina la pregunta de la lista, si la respuesta es que se deben eliminar todas entonces se borra la categoría.
+            foreach (Categorias c in copiaDeCategorias) {
+                if (eliminarTodas) {
+                    copiaDeCategorias.Remove ( c );
+                    return;
+                } else {
+                    foreach (Preguntas p in c.Preguntas) {
+
+                        if (p == preguntaActual) {
+                            if (c.Preguntas.Count <= 2)
+                                copiaDeCategorias.Remove ( c );
+                            else
+                                c.Preguntas.Remove ( p );
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        public Boolean eliminarPersonajesMaquina () {
             Boolean eliminarTodas = false;
-            if (preguntaActual.Aprobados.Contains ( personajeMaquina )) eliminarTodas = true;
+            if (preguntaActual.Aprobados.Contains ( Program.personajeElegido )) eliminarTodas = true;
             List<Personaje> tmp = new List<Personaje> ( seleccionados );
             foreach (Personaje p in tmp) {
                 if (eliminarTodas) {
@@ -52,13 +82,7 @@ namespace AdivinaQuien
                     if (preguntaActual.Aprobados.Contains ( p )) seleccionados.Remove ( p );
                 }
             }
-        }
-
-        public void respuestaNormal () {
-            Random r = new Random ( DateTime.Now.Millisecond );
-           // int count = 0, i = 0;
-            //count = BinaryTreeCategoriaMedia.Recursiones;
-
+            return eliminarTodas;
         }
     }
 }

@@ -16,17 +16,6 @@ namespace AdivinaQuien
         {
             copia = Program.categorias;
         }
-
-        public void formar () {
-        root = BinaryTreeCategoriaMedia.arbolMedia(copia);
-        MessageBox.Show(root.question);
-        MessageBox.Show(root.izq.question);
-        MessageBox.Show(root.izq.izq.question);
-        MessageBox.Show(root.der.question);
-        MessageBox.Show(root.der.der.question);
-      
-    }
-
     }
 
 }
