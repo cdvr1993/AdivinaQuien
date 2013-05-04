@@ -25,9 +25,17 @@
         /// el contenido del método con el editor de código.
         /// </summary>
         private void InitializeComponent () {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaPrincipal));
             this.lstPersonajes = new System.Windows.Forms.ListBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlSelection = new System.Windows.Forms.Panel();
+            this.gbRestantes = new System.Windows.Forms.GroupBox();
+            this.gbResMaq = new System.Windows.Forms.GroupBox();
+            this.lblMaquina = new System.Windows.Forms.Label();
+            this.gbResLocal = new System.Windows.Forms.GroupBox();
+            this.lblLocal = new System.Windows.Forms.Label();
+            this.gbTurno = new System.Windows.Forms.GroupBox();
+            this.lblTurno = new System.Windows.Forms.Label();
             this.cbDificultad = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lstPreguntas = new System.Windows.Forms.ListBox();
@@ -36,18 +44,11 @@
             this.pnlMaquina = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.gbTurno = new System.Windows.Forms.GroupBox();
-            this.lblTurno = new System.Windows.Forms.Label();
-            this.gbRestantes = new System.Windows.Forms.GroupBox();
-            this.gbResLocal = new System.Windows.Forms.GroupBox();
-            this.gbResMaq = new System.Windows.Forms.GroupBox();
-            this.lblLocal = new System.Windows.Forms.Label();
-            this.lblMaquina = new System.Windows.Forms.Label();
             this.pnlSelection.SuspendLayout();
-            this.gbTurno.SuspendLayout();
             this.gbRestantes.SuspendLayout();
-            this.gbResLocal.SuspendLayout();
             this.gbResMaq.SuspendLayout();
+            this.gbResLocal.SuspendLayout();
+            this.gbTurno.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstPersonajes
@@ -81,13 +82,91 @@
             this.pnlSelection.Size = new System.Drawing.Size(227, 296);
             this.pnlSelection.TabIndex = 2;
             // 
+            // gbRestantes
+            // 
+            this.gbRestantes.Controls.Add(this.gbResMaq);
+            this.gbRestantes.Controls.Add(this.gbResLocal);
+            this.gbRestantes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbRestantes.Location = new System.Drawing.Point(15, 152);
+            this.gbRestantes.Name = "gbRestantes";
+            this.gbRestantes.Size = new System.Drawing.Size(198, 136);
+            this.gbRestantes.TabIndex = 1;
+            this.gbRestantes.TabStop = false;
+            this.gbRestantes.Text = "Restantes";
+            this.gbRestantes.Visible = false;
+            // 
+            // gbResMaq
+            // 
+            this.gbResMaq.Controls.Add(this.lblMaquina);
+            this.gbResMaq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbResMaq.Location = new System.Drawing.Point(107, 25);
+            this.gbResMaq.Name = "gbResMaq";
+            this.gbResMaq.Size = new System.Drawing.Size(81, 91);
+            this.gbResMaq.TabIndex = 3;
+            this.gbResMaq.TabStop = false;
+            this.gbResMaq.Text = "Máquina";
+            // 
+            // lblMaquina
+            // 
+            this.lblMaquina.AutoSize = true;
+            this.lblMaquina.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaquina.Location = new System.Drawing.Point(20, 30);
+            this.lblMaquina.Name = "lblMaquina";
+            this.lblMaquina.Size = new System.Drawing.Size(38, 43);
+            this.lblMaquina.TabIndex = 2;
+            this.lblMaquina.Text = "0";
+            // 
+            // gbResLocal
+            // 
+            this.gbResLocal.Controls.Add(this.lblLocal);
+            this.gbResLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbResLocal.Location = new System.Drawing.Point(10, 25);
+            this.gbResLocal.Name = "gbResLocal";
+            this.gbResLocal.Size = new System.Drawing.Size(85, 91);
+            this.gbResLocal.TabIndex = 2;
+            this.gbResLocal.TabStop = false;
+            this.gbResLocal.Text = "Player";
+            // 
+            // lblLocal
+            // 
+            this.lblLocal.AutoSize = true;
+            this.lblLocal.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLocal.Location = new System.Drawing.Point(19, 30);
+            this.lblLocal.Name = "lblLocal";
+            this.lblLocal.Size = new System.Drawing.Size(38, 43);
+            this.lblLocal.TabIndex = 1;
+            this.lblLocal.Text = "0";
+            // 
+            // gbTurno
+            // 
+            this.gbTurno.Controls.Add(this.lblTurno);
+            this.gbTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTurno.Location = new System.Drawing.Point(25, 10);
+            this.gbTurno.Name = "gbTurno";
+            this.gbTurno.Size = new System.Drawing.Size(178, 136);
+            this.gbTurno.TabIndex = 0;
+            this.gbTurno.TabStop = false;
+            this.gbTurno.Text = "Nº de turno";
+            this.gbTurno.Visible = false;
+            // 
+            // lblTurno
+            // 
+            this.lblTurno.AutoSize = true;
+            this.lblTurno.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTurno.Location = new System.Drawing.Point(68, 48);
+            this.lblTurno.Name = "lblTurno";
+            this.lblTurno.Size = new System.Drawing.Size(38, 43);
+            this.lblTurno.TabIndex = 0;
+            this.lblTurno.Text = "0";
+            // 
             // cbDificultad
             // 
             this.cbDificultad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDificultad.FormattingEnabled = true;
             this.cbDificultad.Items.AddRange(new object[] {
             "Fácil",
-            "Normal"});
+            "Normal",
+            "Difícil"});
             this.cbDificultad.Location = new System.Drawing.Point(846, 341);
             this.cbDificultad.Name = "cbDificultad";
             this.cbDificultad.Size = new System.Drawing.Size(167, 21);
@@ -162,83 +241,6 @@
             this.label3.Text = "Personaje de la Computadora";
             this.label3.Visible = false;
             // 
-            // gbTurno
-            // 
-            this.gbTurno.Controls.Add(this.lblTurno);
-            this.gbTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbTurno.Location = new System.Drawing.Point(25, 10);
-            this.gbTurno.Name = "gbTurno";
-            this.gbTurno.Size = new System.Drawing.Size(178, 136);
-            this.gbTurno.TabIndex = 0;
-            this.gbTurno.TabStop = false;
-            this.gbTurno.Text = "Nº de turno";
-            this.gbTurno.Visible = false;
-            // 
-            // lblTurno
-            // 
-            this.lblTurno.AutoSize = true;
-            this.lblTurno.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTurno.Location = new System.Drawing.Point(68, 48);
-            this.lblTurno.Name = "lblTurno";
-            this.lblTurno.Size = new System.Drawing.Size(38, 43);
-            this.lblTurno.TabIndex = 0;
-            this.lblTurno.Text = "0";
-            // 
-            // gbRestantes
-            // 
-            this.gbRestantes.Controls.Add(this.gbResMaq);
-            this.gbRestantes.Controls.Add(this.gbResLocal);
-            this.gbRestantes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbRestantes.Location = new System.Drawing.Point(15, 152);
-            this.gbRestantes.Name = "gbRestantes";
-            this.gbRestantes.Size = new System.Drawing.Size(198, 136);
-            this.gbRestantes.TabIndex = 1;
-            this.gbRestantes.TabStop = false;
-            this.gbRestantes.Text = "Restantes";
-            this.gbRestantes.Visible = false;
-            // 
-            // gbResLocal
-            // 
-            this.gbResLocal.Controls.Add(this.lblLocal);
-            this.gbResLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbResLocal.Location = new System.Drawing.Point(10, 25);
-            this.gbResLocal.Name = "gbResLocal";
-            this.gbResLocal.Size = new System.Drawing.Size(85, 91);
-            this.gbResLocal.TabIndex = 2;
-            this.gbResLocal.TabStop = false;
-            this.gbResLocal.Text = "Player";
-            // 
-            // gbResMaq
-            // 
-            this.gbResMaq.Controls.Add(this.lblMaquina);
-            this.gbResMaq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbResMaq.Location = new System.Drawing.Point(107, 25);
-            this.gbResMaq.Name = "gbResMaq";
-            this.gbResMaq.Size = new System.Drawing.Size(81, 91);
-            this.gbResMaq.TabIndex = 3;
-            this.gbResMaq.TabStop = false;
-            this.gbResMaq.Text = "Máquina";
-            // 
-            // lblLocal
-            // 
-            this.lblLocal.AutoSize = true;
-            this.lblLocal.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLocal.Location = new System.Drawing.Point(19, 30);
-            this.lblLocal.Name = "lblLocal";
-            this.lblLocal.Size = new System.Drawing.Size(38, 43);
-            this.lblLocal.TabIndex = 1;
-            this.lblLocal.Text = "0";
-            // 
-            // lblMaquina
-            // 
-            this.lblMaquina.AutoSize = true;
-            this.lblMaquina.Font = new System.Drawing.Font("Baskerville Old Face", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaquina.Location = new System.Drawing.Point(20, 30);
-            this.lblMaquina.Name = "lblMaquina";
-            this.lblMaquina.Size = new System.Drawing.Size(38, 43);
-            this.lblMaquina.TabIndex = 2;
-            this.lblMaquina.Text = "0";
-            // 
             // VentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,17 +258,18 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lstPreguntas);
             this.Controls.Add(this.lstPersonajes);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaPrincipal";
             this.Text = "Adivina Quién";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnlSelection.ResumeLayout(false);
-            this.gbTurno.ResumeLayout(false);
-            this.gbTurno.PerformLayout();
             this.gbRestantes.ResumeLayout(false);
-            this.gbResLocal.ResumeLayout(false);
-            this.gbResLocal.PerformLayout();
             this.gbResMaq.ResumeLayout(false);
             this.gbResMaq.PerformLayout();
+            this.gbResLocal.ResumeLayout(false);
+            this.gbResLocal.PerformLayout();
+            this.gbTurno.ResumeLayout(false);
+            this.gbTurno.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

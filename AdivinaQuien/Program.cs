@@ -23,12 +23,13 @@ namespace AdivinaQuien
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault ( false );
             Application.Run ( new VentanaPrincipal () );
-
         }
 
         static void cargando () {
             try {
-                Thread hilo = new Thread ( generarPersonajes ), hilo2 = new Thread ( generarCategorias );
+                Thread hilo = new Thread ( generarPersonajes ), hilo2 = new Thread ( generarCategorias ),
+                    splash = new Thread ( cargarSplash );
+                splash.Start ();
                 hilo.Start ();
                 hilo2.Start ();
                 hilo.Join ();
@@ -36,6 +37,7 @@ namespace AdivinaQuien
                 Thread hilo3 = new Thread ( generarRelaciones );
                 hilo3.Start ();
                 hilo3.Join ();
+                splash.Join ();
             } catch (Exception e) {
                 Console.WriteLine ( e.Message );
             }
@@ -111,6 +113,12 @@ namespace AdivinaQuien
                         }
                         aux += c;
                     }
+                    if (column == categorias[indexCat].Count) {
+                        indexCat++;
+                        column = 0;
+                    }
+                    if (aux.Length > 0 && column != -1)
+                        categorias[indexCat].Preguntas[column].agregarAprobado ( personajes[row] );
                     row++;
                     aux = "";
                     indexCat = 0;
@@ -121,5 +129,11 @@ namespace AdivinaQuien
             } catch (FileNotFoundException) { }
         }
 
+        static void cargarSplash () {
+            Splash splash = new Splash ();
+            splash.Show ();
+            Thread.Sleep ( 3000 );
+            splash.Dispose ();
+        }
     }
 }

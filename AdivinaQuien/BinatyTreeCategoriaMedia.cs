@@ -20,19 +20,18 @@ namespace AdivinaQuien
                     num_preguntas += 1;
 
             List<NodoCoincidencias> coincidencias = new List<NodoCoincidencias>(num_preguntas);
-            int contador = 0; 
-
+            int contador = 0;
+            Boolean incluido = false;
             foreach (Categorias c in copia){ // Total de categorias: pelo, ojos, nariz, sonrisa 
             
                 foreach (Preguntas q in c.Preguntas) // Total de preguntas por categoria: pelo corto, pelo largo, pelón 
                 {
+                    if (q.Aprobados.Contains ( Program.personajeElegido )) incluido = true;
+                    else incluido = false;
                     foreach (Personaje p in VentanaPrincipal.seleccionados) // Total de personajes en paneles: alex, romi, yo, etc.
                     {
-                        if (q.aprobados.Contains(p)) // Sí el personaje está contenido en la pregunta... 
-                        {
-                            contador++;
-                        }
-
+                        if (!incluido && q.aprobados.Contains ( p )) contador++;
+                        else if (incluido && !q.aprobados.Contains ( p )) contador++;
                     }
                     coincidencias.Add(new NodoCoincidencias(contador, q));
                     contador = 0;

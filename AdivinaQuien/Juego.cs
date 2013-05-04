@@ -110,12 +110,20 @@ namespace AdivinaQuien
         public void ganar () {
             VentanaPrincipal.Interfaz.pnlMaquina.Controls.Add ( new DisplayPersonaje ( VentanaPrincipal.maquina.personajeMaquina, VentanaPrincipal.Interfaz.pnlMaquina.Size ) );
             MessageBox.Show ( "Has ganado!" );
+            jugarDeNuevo ();
         }
 
         public void perder () {
             VentanaPrincipal.Interfaz.pnlMaquina.Controls.Add ( new DisplayPersonaje ( VentanaPrincipal.maquina.personajeMaquina, VentanaPrincipal.Interfaz.pnlMaquina.Size ) );
             MessageBox.Show ( "Tu personajes es: " + Program.personajeElegido +
                               "\nHas perdido.... Sigue participando!" );
+            jugarDeNuevo ();
+        }
+
+        private void jugarDeNuevo () {
+            if (MessageBox.Show ( "¿Quieres Jugar de nuevo?", "Nuevo Juego", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) ==
+                DialogResult.Yes) Application.Restart ();
+            else Application.Exit ();
         }
     }
 }
