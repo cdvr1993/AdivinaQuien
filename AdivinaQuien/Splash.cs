@@ -11,6 +11,7 @@ using System.Windows.Forms;
 namespace AdivinaQuien
 {
     public partial class Splash : Form{
+        public static Boolean mostrar = true;
         public Splash () {
             InitializeComponent ();
             Image imagen = Image.FromFile ( "Images/Splash.png" );

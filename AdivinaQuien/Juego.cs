@@ -122,8 +122,16 @@ namespace AdivinaQuien
 
         private void jugarDeNuevo () {
             if (MessageBox.Show ( "¿Quieres Jugar de nuevo?", "Nuevo Juego", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) ==
-                DialogResult.Yes) Application.Restart ();
-            else Application.Exit ();
+                DialogResult.Yes) {
+                VentanaPrincipal.Interfaz.Controls.Clear ();
+                VentanaPrincipal.Interfaz.Paneles.Clear ();
+                VentanaPrincipal.seleccionados.Clear ();
+                VentanaPrincipal.game = null;
+                VentanaPrincipal.maquina = null;
+                VentanaPrincipal.copia = null;
+                DisplayPersonaje.cantidadDeTachados = 0;
+                VentanaPrincipal.Interfaz.init ();
+            } else Application.Exit ();
         }
     }
 }

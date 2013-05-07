@@ -21,11 +21,16 @@ namespace AdivinaQuien
         public static BinaryTree.Node copia = null;
 
         public VentanaPrincipal () {
+            init ();
+        }
+
+        public void init () {
             InitializeComponent ();
             generarPaneles ();
             foreach (Personaje p in Program.personajes)
                 lstPersonajes.Items.Add ( p.Nombre );
             Interfaz = this;
+            BinaryTreeCategoriasFacil.root = BinaryTreeCategoriasFacil.arbolCategoriasAleatorias ( Program.categorias ); 
         }
 
         private void generarPaneles () {
@@ -57,9 +62,13 @@ namespace AdivinaQuien
                 do {
                     index = r.Next ( Program.personajes.Count );
                 } while ( agregados.Contains ( Program.personajes[index] ));
-                if (i == NUMPANELES - 1 && !agregados.Contains(Program.personajeElegido)) paneles[i].Display = new DisplayPersonaje ( Program.personajeElegido, paneles[i].Size );
-                else paneles[i].Display = new DisplayPersonaje ( Program.personajes[index], paneles[i].Size );
-                agregados.Add ( Program.personajes[index] );
+                if (i == NUMPANELES - 1 && !agregados.Contains ( Program.personajeElegido )) {
+                    paneles[i].Display = new DisplayPersonaje ( Program.personajeElegido, paneles[i].Size );
+                    agregados.Add ( Program.personajeElegido );
+                } else {
+                    paneles[i].Display = new DisplayPersonaje ( Program.personajes[index], paneles[i].Size );
+                    agregados.Add ( Program.personajes[index] );
+                }
             }
             seleccionados = agregados;
             Maquina.seleccionados = agregados;

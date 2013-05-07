@@ -68,8 +68,10 @@ namespace AdivinaQuien
                     VentanaPrincipal.maquina.escogerRespuesta ();
                     if (VentanaPrincipal.maquina.personajeMaquina == this.personaje) VentanaPrincipal.game.ganar ();
                     else this.tacharPersonaje ();
-                    VentanaPrincipal.game.cambiarTurno ();
-                    VentanaPrincipal.game.escribirRestantes ();
+                    if (VentanaPrincipal.game != null) {
+                        VentanaPrincipal.game.cambiarTurno ();
+                        VentanaPrincipal.game.escribirRestantes ();
+                    }
                 }
             }
         }

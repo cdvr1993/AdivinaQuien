@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdivinaQuien
 {
@@ -27,7 +28,9 @@ namespace AdivinaQuien
 
         public void escogerRespuesta () {
             if (seleccionados.Count == 1) {
-                seleccionados.RemoveAt ( 0 );
+                if (seleccionados[0] == Program.personajeElegido) seleccionados.RemoveAt ( 0 );
+                else MessageBox.Show ( "Ha habido un problema en el juego", "Personaje elegido fuera del rango", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error );
                 return;
             }
             if (dificultad == 0) respuestaFacil ();
@@ -39,6 +42,7 @@ namespace AdivinaQuien
             Random r = new Random ( DateTime.Now.Millisecond );
             int count = 0, i = 0;
             Program.copia.Count ( Program.copia, ref count );
+            if (count == 0) borrarAleatorio ();
             Program.copia.encontrarPreguntaAleatoria ( r.Next ( count ), ref i, Program.copia );
             eliminarPersonajesMaquina ();
         }
@@ -100,13 +104,15 @@ namespace AdivinaQuien
                     }
                 }
             }
-            if (eliminados == 0 && (dificultad==1 || dificultad==2) ) {
-                Random r = new Random ( DateTime.Now.Millisecond );
-                int aleatorio = r.Next ( seleccionados.Count );
-                if (seleccionados[aleatorio] == Program.personajeElegido) VentanaPrincipal.game.perder ();
-                seleccionados.RemoveAt ( aleatorio );
-            }
+            if (eliminados == 0 && (dificultad == 1 || dificultad == 2)) borrarAleatorio ();
             return eliminarTodas;
+        }
+
+        public void borrarAleatorio () {
+            Random r = new Random ( DateTime.Now.Millisecond );
+            int aleatorio = r.Next ( seleccionados.Count );
+            if (seleccionados[aleatorio] == Program.personajeElegido) VentanaPrincipal.game.perder ();
+            seleccionados.RemoveAt ( aleatorio );
         }
     }
 }
