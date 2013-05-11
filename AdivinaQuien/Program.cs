@@ -38,6 +38,7 @@ namespace AdivinaQuien
                 hilo3.Start ();
                 hilo3.Join ();
                 splash.Join ();
+              
             } catch (Exception e) {
                 Console.WriteLine ( e.Message );
             }
@@ -133,7 +134,7 @@ namespace AdivinaQuien
 <<<<<<< HEAD
             Splash splash = new Splash ();
             splash.Show ();
-            Thread.Sleep ( 3000 );
+            Thread.Sleep ( 5000 );
             splash.Dispose ();
 =======
             if (Splash.mostrar) {
