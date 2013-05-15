@@ -131,21 +131,20 @@ namespace AdivinaQuien
         }
 
         static void cargarSplash () {
-<<<<<<< HEAD
+
             Splash splash = new Splash ();
             splash.Show ();
             Thread.Sleep ( 5000 );
             splash.Dispose ();
-=======
+
             if (Splash.mostrar) {
-                Splash splash = new Splash ();
-                splash.Show ();
+                Splash splash2 = new Splash ();
+                splash2.Show ();
                 Thread.Sleep ( 3000 );
-                splash.Dispose ();
+                splash2.Dispose ();
                 Splash.mostrar = false;
-                splash.Dispose ();
+                splash2.Dispose ();
             }
->>>>>>> Reinicio Mejorado del Juego
         }
     }
 }
